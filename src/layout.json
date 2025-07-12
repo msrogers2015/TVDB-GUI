@@ -1,1 +1,140 @@
-{}
+{
+  "title" : {
+    "text":  "TVDB Renaming Tool",
+    "location" : "root",
+    "type" : "label",
+    "x" : "0",
+    "y" : "0",
+    "width" : "800",
+    "height" : "50",
+    "font": {"family":  null, "size": 24 },
+    "anchor": "center"
+  },
+  "table" : {
+    "location" : "root",
+    "type" : "treeview",
+    "x" : "25",
+    "y" : "55",
+    "width" : "750",
+    "height" : "450",
+    "xscroll" : {
+      "location" : "bottom"
+    },
+    "yscroll" : {
+      "location" : "right"
+    },
+    "columns" : {
+      "Filename" : {
+        "width" : 245
+      },
+      "Location" : {
+        "width" : 495
+      }
+    }
+  },
+  "select_files" : {
+    "text":  "Select Files",
+    "location" : "root",
+    "type" : "button",
+    "x" : "15",
+    "y" : "510",
+    "width" : "150",
+    "height" : "35",
+    "command" : null,
+    "state" : ""
+  },
+  "rename_files" : {
+    "text":  "Rename",
+    "location" : "root",
+    "type" : "button",
+    "x" : "15",
+    "y" : "550",
+    "width" : "150",
+    "height" : "35",
+    "command" : null,
+    "state" : "disabled"
+  },
+  "search_by_id" : {
+    "text":  "Search By ID",
+    "location" : "root",
+    "type" : "button",
+    "x" : "175",
+    "y" : "510",
+    "width" : "150",
+    "height" : "35",
+    "command" : null,
+    "state" : "disabled"
+  },
+  "search_by_name" : {
+    "text":  "Search By Name",
+    "location" : "root",
+    "type" : "button",
+    "x" : "175",
+    "y" : "550",
+    "width" : "150",
+    "height" : "35",
+    "command" : null,
+    "state" : "disabled"
+  },
+  "menu" : {
+    "type" : "menu",
+    "sub_menus" : {
+      "file_menu" : {
+        "name" : "File",
+        "commands" : {
+          "Add API Key" : null
+        }
+      },
+      "help_menu" : {
+        "name" : "Help",
+        "commands" : {
+          "View Help" : null
+        }
+      }
+    }
+  },
+  "season_select" : {
+    "text":  "Select Season",
+    "location" : "root",
+    "type" : "label",
+    "x" : "335",
+    "y" : "505",
+    "width" : "200",
+    "height" : "35",
+    "font": {"family":  null, "size": 12 },
+    "anchor": "center"
+  },
+  "season_select_menu" : {
+    "type" : "dropdown",
+    "variable" : "season_variable",
+    "location" : "root",
+    "x" : "335",
+    "y" : "545",
+    "width" : "200",
+    "height" : "30",
+    "options": [],
+    "default" : "Select a Season"
+  },
+  "tvdb_logo" : {
+    "type" : "image",
+    "image_path" : "tvdb_logo.png",
+    "sub_directory" : "img",
+    "label_name" : "tvdb_logo_label",
+    "location" :"root",
+    "x" : "600",
+    "y" : "510",
+    "width" : "105",
+    "height" : "60"
+  },
+  "metadata_tag" : {
+    "text":  "Metadata provided by TheTVDB.",
+    "location" : "root",
+    "type" : "label",
+    "x" : "550",
+    "y" : "570",
+    "width" : "200",
+    "height" : "30",
+    "font": {"family":  null, "size": 10 },
+    "anchor": "n"
+  }
+}
