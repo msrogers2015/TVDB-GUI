@@ -13,10 +13,36 @@ class App(tk.Tk):
         super().__init__()
         self.base_dir = os.path.dirname(os.path.abspath(__file__))
         self.widgets = {}
-        self.functions = {}
+        local_functions = ['select_files']
+        self.functions = {name: getattr(self, name) for name in local_functions}
         self.parse_gui = GUIParser(self, self.widgets, self.functions, self.base_dir)
         self.configure_gui()
         self.create_gui()
+
+    def select_files(self):
+        filetypes = [('MP4', '*.mp4'),('MOV', '*.mov'), ('Matroska', '*.mkv')]
+        media_files = filedialog.askopenfiles(filetypes=filetypes)
+        if media_files:
+            self.populate_table(media_files)
+
+    def populate_table(self, videos: list):
+        for record in self.widgets['table'].get_children():
+            self.widgets['table'].delete(record)
+        for index, video in enumerate(videos):
+            full_file = video.name.split('/')[-1]
+            file_name = full_file.split('.')[0]
+            file_type = full_file.split('.')[1]
+            path = "/".join(video.name.split('/')[:-1])
+            self.widgets["table"].insert(
+                parent='',
+                index='end',
+                iid=index,
+                values= [file_name, file_type, path]
+            )
+        self.widgets['rename_files'].configure(state='acitve')
+        self.widgets['search_by_id'].configure(state='acitve')
+        self.widgets['search_by_name'].configure(state='acitve')
+
 
     def configure_gui(self):
         """Base application configurations including sizing, appearance, application title, etc."""
@@ -50,6 +76,8 @@ class App(tk.Tk):
                         self.parse_gui.parse_dropdown(data[item], item)
                     case "image":
                         self.parse_gui.parse_image(data[item], item)
+                    case "entry":
+                        self.parse_gui.parse_entry(data[item], item)
 
 
 class GUIParser:
@@ -182,6 +210,15 @@ class GUIParser:
             image = self.widgets[item]
         )
         self.widgets[data['label_name']].place(x=data["x"], y=data["y"], width=data["width"], height=data["height"])
+
+    def parse_entry(self, data: dict, item: str) -> None:
+        """Creates a tk.Entry using data passed from the json dump. The item name is widget dict reference point for
+                any required in-process configuration updates. Currently supported arguments are: Placement (either the root
+                application or another widget)"""
+        self.widgets[item] = tk.Entry(
+            self.root if data['location'] == "root" else self.widgets[data['location']]
+        )
+        self.widgets[item].place(x=data["x"], y=data["y"], width=data["width"], height=data["height"])
 
 if __name__ == "__main__":
     app = App()
