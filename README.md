@@ -30,7 +30,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/msrogers2015/TVDB-GUI">
-    <img src="img/logo.png" alt="Logo" width="120" height="120">
+    <img src="src/img/logo.png" alt="Logo" width="120" height="120">
   </a>
 
 <h3 align="center">TVDB GUI</h3>
@@ -219,6 +219,6 @@ Project Link: [https://github.com/msrogers2015/TVDB-GUI](https://github.com/msro
 [license-shield]: https://img.shields.io/github/license/msrogers2015/TVDB-GUI.svg?style=for-the-badge
 [license-url]: https://github.com/msrogers2015/TVDB-GUI/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[product-screenshot]: img/screenshot1.png
+[product-screenshot]: src/img/screenshot1.png
 [Python]: https://img.shields.io/badge/python-000?style=for-the-badge&logo=python
 [Python-url]: https://www.python.org
