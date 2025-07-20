@@ -2,11 +2,11 @@ import unittest
 import tkinter as tk
 from src.main import App
 
-class TestApp(unittest.TestCase):
+class TestGUI(unittest.TestCase):
     def setUp(self):
         # Suppress the GUI window from appearing
         self.app = App()
-        #self.app.withdraw()  # Hide the main window
+        self.app.withdraw()
 
     def tearDown(self):
         self.app.destroy()  # Clean up the instance
@@ -18,7 +18,7 @@ class TestApp(unittest.TestCase):
         self.assertEqual(self.app.widgets['title'].cget('text'), "TVDB Renaming Tool")
 
     def test_treeview(self):
-        self.assertEqual(self.app.widgets['table']['columns'], ('Filename','Location'))
+        self.assertEqual(self.app.widgets['table']['columns'], ('Filename','FileType','Location'))
 
     def test_button(self):
         self.assertEqual(self.app.widgets['select_files'].cget('text'), "Select Files")
