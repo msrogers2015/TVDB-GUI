@@ -85,13 +85,13 @@
       "file_menu" : {
         "name" : "File",
         "commands" : {
-          "Add API Key" : null
+          "Add API Key" : "set_api"
         }
       },
       "help_menu" : {
         "name" : "Help",
         "commands" : {
-          "View Help" : null
+          "View Help" : "open_help"
         }
       }
     }

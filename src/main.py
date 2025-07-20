@@ -1,7 +1,9 @@
 import os
 import json
+import dotenv
 import tkinter as tk
 from tkinter import ttk
+from dotenv import load_dotenv
 from tkinter import messagebox, filedialog
 
 
@@ -13,11 +15,46 @@ class App(tk.Tk):
         super().__init__()
         self.base_dir = os.path.dirname(os.path.abspath(__file__))
         self.widgets = {}
-        local_functions = ['select_files']
+        local_functions = ['select_files', 'set_api', 'open_help']
         self.functions = {name: getattr(self, name) for name in local_functions}
         self.parse_gui = GUIParser(self, self.widgets, self.functions, self.base_dir)
         self.configure_gui()
         self.create_gui()
+        self.load_api()
+
+    def load_api(self):
+        """Check if user currently has an API key saved."""
+        load_dotenv()
+        self.api_key_value = os.getenv('API_KEY')
+        if self.api_key_value == "":
+            messagebox.showwarning('API Key', 'API Key not set. Please use the File menu to set you API key.')
+
+    def set_api(self):
+        self.api_window = tk.Toplevel()
+        self.api_window.title('Save API Key')
+        width = 400
+        height = 80
+        x_pos = (self.winfo_screenwidth() // 2) - (width // 2)
+        y_pos = (self.winfo_screenheight() // 2) - (height // 2)
+        self.api_window.geometry(f"{width}x{height}+{x_pos}+{y_pos}")
+        enter_key_label = ttk.Label(self.api_window, text='Enter API Key:')
+        self.api_key_entry = ttk.Entry(self.api_window)
+        save_btn = ttk.Button(self.api_window, text='Save API Key', command=self.save_api)
+        enter_key_label.place(x=0, y=0, width=100, height=35)
+        self.api_key_entry.place(x=100, y=0, width=300, height=35)
+        save_btn.place(x=140, y=40, width=120, height=35)
+
+    def save_api(self):
+        new_api = self.api_key_entry.get()
+        if len(new_api) != 0:
+            env_file = dotenv.find_dotenv()
+            os.environ['API_KEY'] = new_api
+            dotenv.set_key(dotenv_path=env_file, key_to_set='API_KEY', value_to_set=new_api)
+            self.api_key_entry.delete(0, 'end')
+            self.api_window.withdraw()
+
+    def open_help(self):
+        pass
 
     def select_files(self):
         filetypes = [('MP4', '*.mp4'),('MOV', '*.mov'), ('Matroska', '*.mkv')]
@@ -42,7 +79,6 @@ class App(tk.Tk):
         self.widgets['rename_files'].configure(state='acitve')
         self.widgets['search_by_id'].configure(state='acitve')
         self.widgets['search_by_name'].configure(state='acitve')
-
 
     def configure_gui(self):
         """Base application configurations including sizing, appearance, application title, etc."""
@@ -177,7 +213,8 @@ class GUIParser:
             sub_data = data['sub_menus'][submenu]
             self.widgets[submenu] = tk.Menu(self.widgets[item], tearoff=False)
             for command in sub_data['commands']:
-                self.widgets[submenu].add_command(label=command, command=lambda : print(command))
+                function_name = data['sub_menus'][submenu]['commands'][command]
+                self.widgets[submenu].add_command(label=command, command= self.functions[function_name])
             self.widgets[item].add_cascade(label=sub_data['name'], menu = self.widgets[submenu])
 
         self.root.config(menu = self.widgets[item])

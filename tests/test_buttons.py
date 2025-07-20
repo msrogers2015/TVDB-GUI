@@ -24,6 +24,10 @@ class TestButtons(unittest.TestCase):
         self.app.populate_table(videos)
         self.assertEqual(len(self.app.widgets['table'].get_children()), 2)
 
+    def test_update_api(self):
+        pass
+
+
 
 if __name__ == "__main__":
     unittest.main()
