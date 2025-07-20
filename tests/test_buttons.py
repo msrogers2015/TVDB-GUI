@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import MagicMock
 import os
 import tkinter as tk
+from dotenv import load_dotenv
 
 from src.main import App
 
@@ -25,9 +26,12 @@ class TestButtons(unittest.TestCase):
         self.assertEqual(len(self.app.widgets['table'].get_children()), 2)
 
     def test_update_api(self):
-        pass
-
-
+        self.app.set_api()
+        self.app.api_key_entry.insert(tk.END, 'testAPIKey')
+        self.app.save_api()
+        load_dotenv()
+        test_key = os.getenv('API_KEY')
+        self.assertEqual(test_key, 'testAPIKey')
 
 if __name__ == "__main__":
     unittest.main()

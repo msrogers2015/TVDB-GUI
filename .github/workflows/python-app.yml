@@ -16,6 +16,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      API_KEY: ''
 
     steps:
     - uses: actions/checkout@v4
